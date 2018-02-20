@@ -6,6 +6,7 @@ class rabbitmq::config {
   $admin_enable                        = $rabbitmq::admin_enable
   $cluster_node_type                   = $rabbitmq::cluster_node_type
   $cluster_nodes                       = $rabbitmq::cluster_nodes
+  $rabbitmq_path                       = $rabbitmq::rabbitmq_path
   $config                              = $rabbitmq::config
   $config_cluster                      = $rabbitmq::config_cluster
   $config_path                         = $rabbitmq::config_path
@@ -136,14 +137,14 @@ class rabbitmq::config {
     $environment_variables = $_environment_variables
   }
 
-  file { '/etc/rabbitmq':
+  file { "${rabbitmq_path}":
     ensure => directory,
     owner  => '0',
     group  => '0',
     mode   => '0755',
   }
 
-  file { '/etc/rabbitmq/ssl':
+  file { "${rabbitmq_path}/ssl":
     ensure => directory,
     owner  => '0',
     group  => '0',
@@ -183,7 +184,7 @@ class rabbitmq::config {
   if $admin_enable {
     file { 'rabbitmqadmin.conf':
       ensure  => file,
-      path    => '/etc/rabbitmq/rabbitmqadmin.conf',
+      path    => "${rabbitmq_path}/rabbitmqadmin.conf",
       content => template('rabbitmq/rabbitmqadmin.conf.erb'),
       owner   => '0',
       group   => $rabbitmq_group,

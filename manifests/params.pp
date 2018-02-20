@@ -92,6 +92,7 @@ class rabbitmq::params {
   #config
   $cluster_node_type                   = 'disc'
   $cluster_nodes                       = []
+  $rabbitmq_path                       ='/etc/rabbitmq'
   $config                              = 'rabbitmq/rabbitmq.config.erb'
   $config_cluster                      = false
   $config_path                         = '/etc/rabbitmq/rabbitmq.config'
